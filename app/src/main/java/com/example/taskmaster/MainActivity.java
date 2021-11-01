@@ -2,10 +2,16 @@ package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.text.BreakIterator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,5 +36,44 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentAllTasks);
             }
         });
+
+        findViewById(R.id.button4).setOnClickListener(view -> {
+            Intent intentSetting = new Intent(MainActivity.this, SettingsPage.class);
+            startActivity(intentSetting);
+        });
+
+        Button buttonTask1 = findViewById(R.id.button5);
+        buttonTask1.setOnClickListener(view -> {
+            Intent intentTaskDetails = new Intent(MainActivity.this, TaskDetailPage.class);
+            String task1 = buttonTask1 .getText().toString();
+            intentTaskDetails.putExtra("title", task1);
+            startActivity(intentTaskDetails);
+        });
+
+        Button buttonTask2 = findViewById(R.id.button6);
+        buttonTask2.setOnClickListener(view -> {
+            Intent intentTaskDetails = new Intent(MainActivity.this, TaskDetailPage.class);
+            String task2 = buttonTask2 .getText().toString();
+            intentTaskDetails.putExtra("title", task2);
+            startActivity(intentTaskDetails);
+        });
+
+        Button buttonTask3 = findViewById(R.id.button7);
+        buttonTask3.setOnClickListener(view -> {
+            Intent intentTaskDetails = new Intent(MainActivity.this, TaskDetailPage.class);
+            String task3 = buttonTask3 .getText().toString();
+            intentTaskDetails.putExtra("title", task3);
+            startActivity(intentTaskDetails);
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String userName = sharedPreferences.getString("UserName","User");
+
+        TextView title = findViewById(R.id.textView);
+        title.setText(userName + "'s Tasks");
     }
 }
