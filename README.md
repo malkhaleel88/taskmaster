@@ -41,3 +41,18 @@ In This lab added three buttons on the main page, each button for one task that 
 ![Settings page](screenshots/lab27(5).jpg)
 
 -------------------------------------------------------------------------------------------------------------
+
+## **Lab: 28 - RecyclerView**
+
+In this lab I used the RecyclerView to view all tasks in the home page as the list.
+### **Main Activity**
+
+![Home page](screenshots/lab28(1).jpg)
+
+![Home page2](screenshots/lab28(2).jpg)
+
+### **TaskDetailPage Activity**
+
+![Task detail page](screenshots/lab28(3).jpg)
+
+-------------------------------------------------------------------------------------------------------------

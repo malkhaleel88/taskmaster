@@ -1,6 +1,8 @@
 package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.BreakIterator;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,6 +68,31 @@ public class MainActivity extends AppCompatActivity {
             intentTaskDetails.putExtra("title", task3);
             startActivity(intentTaskDetails);
         });
+
+        ArrayList<Task> taskData = new ArrayList<>();
+
+        taskData.add(new Task("Mercedes", "German Cars Company", "new"));
+        taskData.add(new Task("Ford", "American Cars Company", "assigned" ));
+        taskData.add(new Task("Hyundai", "Korean Cars Company", "in progress"));
+        taskData.add(new Task("Toyota", "Japanese Cars Company", "complete"));
+
+
+        RecyclerView allTasksRecyclerView = findViewById(R.id.recycleViewId);
+
+        allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        allTasksRecyclerView.setAdapter(new TaskAdapter(taskData, new TaskAdapter.OnTaskItemClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                Intent intentTaskDetails = new Intent(getApplicationContext(), TaskDetailPage.class);
+                intentTaskDetails.putExtra("title", taskData.get(position).title);
+                intentTaskDetails.putExtra("body", taskData.get(position).body);
+                intentTaskDetails.putExtra("state", taskData.get(position).state);
+                startActivity(intentTaskDetails);
+
+            }
+        }));
     }
 
     @Override
