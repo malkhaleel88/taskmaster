@@ -1,10 +1,5 @@
 package com.example.taskmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,10 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.BreakIterator;
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +68,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentTaskDetails);
         });
 
-        ArrayList<Task> taskData = new ArrayList<>();
+//        ArrayList<Task> taskData = new ArrayList<>();
+//
+//        taskData.add(new Task("Mercedes", "German Cars Company", "new"));
+//        taskData.add(new Task("Ford", "American Cars Company", "assigned" ));
+//        taskData.add(new Task("Hyundai", "Korean Cars Company", "in progress"));
+//        taskData.add(new Task("Toyota", "Japanese Cars Company", "complete"));
 
-        taskData.add(new Task("Mercedes", "German Cars Company", "new"));
-        taskData.add(new Task("Ford", "American Cars Company", "assigned" ));
-        taskData.add(new Task("Hyundai", "Korean Cars Company", "in progress"));
-        taskData.add(new Task("Toyota", "Japanese Cars Company", "complete"));
-
+        List<Task> taskData = AppDatabase.getInstance(this).taskDao().getAll();
 
         RecyclerView allTasksRecyclerView = findViewById(R.id.recycleViewId);
 
