@@ -10,7 +10,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
@@ -51,7 +50,7 @@ public class EspressoTest {
     }
 
     @Test
-    public void addNewTask(){
+    public void addNewTask() {
 
         onView(withId(R.id.button)).perform(click());
         onView(withId(R.id.taskTitleInput)).perform(typeText("Toyota"), closeSoftKeyboard());
@@ -60,16 +59,5 @@ public class EspressoTest {
         onView(withId(R.id.button3)).perform(click());
 
     }
-
-    @Test
-    public void openTaskDetail() throws InterruptedException {
-
-        onView(withId(R.id.recycleViewId)).perform(RecyclerViewActions.actionOnItemAtPosition(1,click()));
-        onView(withId(R.id.textView8)).check(matches(withText("Toyota")));
-        onView(withId(R.id.textView10)).check(matches(withText("Japanese Company Cars")));
-        onView(withId(R.id.textView14)).check(matches(withText("complete")));
-    }
-
-
-
+    
 }
