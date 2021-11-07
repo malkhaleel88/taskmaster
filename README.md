@@ -77,3 +77,26 @@ In this lab, I added a Room database to save the tasks and the details of tasks 
 ![Task detail page](screenshots/lab29(4).jpg)
 
 -------------------------------------------------------------------------------------------------------------
+
+## **Lab: 31 - Espresso and Polish**
+
+In This lab I tests the code by using Espresso test.
+
+### **I created 4 test:**
+
+**1. testAddTaskCheck()**
+
+To test the important UI elements are displayed on the Add Task page.
+
+**2. testAllTaskCheck()**
+
+To test the important UI elements are displayed on the All Task page.
+
+**3. assertTextChanged()**
+
+To test if you edit the user’s username, and then assert that it says the correct thing on the homepage.
+
+**4. addNewTask()**
+
+To test if you can add a new task then when you tap on this task.
+
