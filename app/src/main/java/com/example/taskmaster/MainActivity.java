@@ -153,23 +153,4 @@ public class MainActivity extends AppCompatActivity {
         title.setText(userName + "'s Tasks");
     }
 
-
-
-
-//    private  List<Task> GetData(){
-//        List<Task> foundTask = new ArrayList<>();
-//
-//        Amplify.DataStore.query(
-//                Task.class,
-//                queryMatches -> {
-//                    while (queryMatches.hasNext()) {
-//                        Log.i(TAG, "Successful Query, Found Tasks.");
-//                        foundTask.add(queryMatches.next());
-//                    }
-//                },
-//                error -> {
-//                    Log.i(TAG,  "Error Retrieving Task", error);
-//                });
-//        return foundTask;
-//    }
 }

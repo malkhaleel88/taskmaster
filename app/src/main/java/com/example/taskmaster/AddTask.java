@@ -65,13 +65,3 @@ public class AddTask extends AppCompatActivity {
     }
         }
 
-//    private void dataStore(String title, String body, String state) {
-//        Task task = Task.builder().title(title).state(state).body(body).build();
-//
-//        Amplify.DataStore.save(task, result -> {
-//            Log.i(TAG, "Task Saved");
-//        }, error -> {
-//            Log.i(TAG, "Task Not Saved");
-//        });
-//
-//    }

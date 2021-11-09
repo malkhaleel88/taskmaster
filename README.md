@@ -116,6 +116,10 @@ Now when the user add new task in the add task page, The task will store in the 
 
 ![Home page2](screenshots/lab32(2).jpg)
 
+### **AWS DynamoDB**
+
+![DynamoDB](screenshots/lab32(3).PNG)
+
 ---------------------------------------------------------------------------------------------------------------
 
 ## **Lab 33: Related Data**
@@ -127,5 +131,7 @@ In this lab I created a second entity for a team, which has a name and a list of
 ### **Add Task Activity**
 
 ### **Setting Activity**
+
+
 
 
