@@ -3,7 +3,6 @@ package com.example.taskmaster;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -18,27 +17,20 @@ import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.datastore.generated.model.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Handler handler;
+    private static final String TAG = "MainActivity";
+    boolean configured = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.configure(getApplicationContext());
-
-            Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException e) {
-            Log.e("Tutorial", "Could not initialize Amplify", e);
-        }
 
 
         Button addTask = findViewById(R.id.button);
@@ -94,20 +86,27 @@ public class MainActivity extends AppCompatActivity {
 //        taskData.add(new Task("Hyundai", "Korean Cars Company", "in progress"));
 //        taskData.add(new Task("Toyota", "Japanese Cars Company", "complete"));
 
-        List<Task> taskData = AppDatabase.getInstance(this).taskDao().getAll();
+//        List<TaskOld> taskOldData = AppDatabase.getInstance(this).taskDao().getAll();
+        if(configured) {
+            configureAmplify();
+        }
+
+        List<Task> tasks = new ArrayList<>();
+        tasks = GetData();
 
         RecyclerView allTasksRecyclerView = findViewById(R.id.recycleViewId);
 
         allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        allTasksRecyclerView.setAdapter(new TaskAdapter(taskData, new TaskAdapter.OnTaskItemClickListener() {
+        List<Task> finalTasks = tasks;
+        allTasksRecyclerView.setAdapter(new TaskAdapter(tasks, new TaskAdapter.OnTaskItemClickListener() {
             @Override
             public void onItemClicked(int position) {
                 Intent intentTaskDetails = new Intent(getApplicationContext(), TaskDetailPage.class);
-                intentTaskDetails.putExtra("title", taskData.get(position).title);
-                intentTaskDetails.putExtra("body", taskData.get(position).body);
-                intentTaskDetails.putExtra("state", taskData.get(position).state);
+                intentTaskDetails.putExtra("title", finalTasks.get(position).getTitle());
+                intentTaskDetails.putExtra("body", finalTasks.get(position).getBody());
+                intentTaskDetails.putExtra("state", finalTasks.get(position).getState());
                 startActivity(intentTaskDetails);
 
             }
@@ -122,5 +121,33 @@ public class MainActivity extends AppCompatActivity {
 
         TextView title = findViewById(R.id.textView);
         title.setText(userName + "'s Tasks");
+    }
+
+    private void configureAmplify() {
+        configured = false;
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i(TAG, "Initialized Amplify");
+        } catch (AmplifyException error) {
+            Log.e(TAG, "Could not initialize Amplify", error);
+        }}
+    private  List<Task> GetData(){
+        List<Task> foundTask = new ArrayList<>();
+
+        Amplify.DataStore.query(
+                Task.class,
+                queryMatches -> {
+                    while (queryMatches.hasNext()) {
+                        Log.i(TAG, "Successful Query, Found Tasks.");
+                        foundTask.add(queryMatches.next());
+                    }
+                },
+                error -> {
+                    Log.i(TAG,  "Error Retrieving Task", error);
+                });
+        return foundTask;
     }
 }

@@ -2,6 +2,7 @@ package com.example.taskmaster;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,9 +11,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
+
+
 public class AddTask extends AppCompatActivity {
 
     int counter;
+    private static final String TAG = "AddTask";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +38,10 @@ public class AddTask extends AppCompatActivity {
                 EditText taskState = findViewById(R.id.taskStateInput);
                 String state = taskState.getText().toString();
 
-                Task task = new Task(title, body, state);
-                AppDatabase.getInstance(getApplicationContext()).taskDao().insertTask(task);
+//                TaskOld taskOld = new TaskOld(title, body, state);
+//                AppDatabase.getInstance(getApplicationContext()).taskDao().insertTask(taskOld);
+
+                dataStore(title, body, state);
 
                 TextView tasks = findViewById(R.id.textView7);
                 counter++;
@@ -42,5 +50,16 @@ public class AddTask extends AppCompatActivity {
                 Toast.makeText(context, "Submitted!", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void dataStore(String title, String body, String state) {
+        Task task = Task.builder().title(title).state(state).body(body).build();
+
+        Amplify.DataStore.save(task, result -> {
+            Log.i(TAG, "Task Saved");
+        }, error -> {
+            Log.i(TAG, "Task Not Saved");
+        });
+
     }
 }

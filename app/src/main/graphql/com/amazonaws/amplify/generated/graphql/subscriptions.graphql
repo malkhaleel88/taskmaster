@@ -3,8 +3,11 @@ subscription OnCreateTask {
   onCreateTask {
     id
     title
-    description
-    status
+    body
+    state
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
@@ -13,8 +16,11 @@ subscription OnUpdateTask {
   onUpdateTask {
     id
     title
-    description
-    status
+    body
+    state
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
@@ -23,32 +29,11 @@ subscription OnDeleteTask {
   onDeleteTask {
     id
     title
-    description
-    status
-    createdAt
-    updatedAt
-  }
-}
-subscription OnCreateNote {
-  onCreateNote {
-    id
-    content
-    createdAt
-    updatedAt
-  }
-}
-subscription OnUpdateNote {
-  onUpdateNote {
-    id
-    content
-    createdAt
-    updatedAt
-  }
-}
-subscription OnDeleteNote {
-  onDeleteNote {
-    id
-    content
+    body
+    state
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }

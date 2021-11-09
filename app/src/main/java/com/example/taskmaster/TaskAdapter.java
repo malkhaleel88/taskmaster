@@ -8,16 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.datastore.generated.model.Task;
+
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
-    private final List<Task> taskItems;
+    private final List<Task> task;
     private OnTaskItemClickListener listener;
 
 
     public TaskAdapter(List<Task> taskMasterItem, OnTaskItemClickListener listener) {
-        this.taskItems = taskMasterItem;
+        this.task = taskMasterItem;
         this.listener = listener;
     }
 
@@ -34,19 +36,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return new ViewHolder(view, listener);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Task item = taskItems.get(position);
-        holder.title.setText(item.title);
-        holder.body.setText(item.body);
-        holder.state.setText(item.state);
+        Task item = task.get(position);
+        holder.title.setText(item.getTitle());
+        holder.body.setText(item.getBody());
+        holder.state.setText(item.getState());
 
     }
 
     @Override
     public int getItemCount() {
-        return taskItems.size();
+        return task.size();
 
     }
 
