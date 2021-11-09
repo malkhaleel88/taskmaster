@@ -4,4 +4,3 @@ type Task @model {
   body: String
   state: String
 }
-

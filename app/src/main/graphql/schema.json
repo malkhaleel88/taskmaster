@@ -2631,6 +2631,15 @@
                 "args": []
             },
             {
+                "name": "aws_lambda",
+                "description": null,
+                "locations": [
+                    "FIELD_DEFINITION",
+                    "OBJECT"
+                ],
+                "args": []
+            },
+            {
                 "name": "aws_oidc",
                 "description": null,
                 "locations": [

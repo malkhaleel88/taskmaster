@@ -115,3 +115,7 @@ Now when the user add new task in the add task page, The task will store in the 
 ![Home page](screenshots/lab32(1).jpg)
 
 ![Home page2](screenshots/lab32(2).jpg)
+
+### **AWS DynamoDB**
+
+![DynamoDB](screenshots/lab32(3).PNG)
