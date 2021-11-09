@@ -115,3 +115,17 @@ Now when the user add new task in the add task page, The task will store in the 
 ![Home page](screenshots/lab32(1).jpg)
 
 ![Home page2](screenshots/lab32(2).jpg)
+
+---------------------------------------------------------------------------------------------------------------
+
+## **Lab 33: Related Data**
+
+In this lab I created a second entity for a team, which has a name and a list of tasks. So, tasks will be Updated to be owned by a team.
+
+### **Main Activity**
+
+### **Add Task Activity**
+
+### **Setting Activity**
+
+
