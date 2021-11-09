@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 
@@ -41,25 +42,36 @@ public class AddTask extends AppCompatActivity {
 //                TaskOld taskOld = new TaskOld(title, body, state);
 //                AppDatabase.getInstance(getApplicationContext()).taskDao().insertTask(taskOld);
 
-                dataStore(title, body, state);
+                Task task = Task.builder()
+                        .title(title)
+                        .body(body)
+                        .state(state)
+                        .build();
 
-                TextView tasks = findViewById(R.id.textView7);
-                counter++;
-                tasks.setText(String.valueOf(counter));
-                Context context = getApplicationContext();
-                Toast.makeText(context, "Submitted!", Toast.LENGTH_LONG).show();
+                Amplify.API.mutate(
+                        ModelMutation.create(task),
+                        response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
+                        error -> Log.e("MyAmplifyApp", "Create failed", error)
+                );
+
             }
         });
+
+        TextView tasks = findViewById(R.id.textView7);
+        counter++;
+        tasks.setText(String.valueOf(counter));
+        Context context = getApplicationContext();
+        Toast.makeText(context, "Submitted!", Toast.LENGTH_LONG).show();
     }
+        }
 
-    private void dataStore(String title, String body, String state) {
-        Task task = Task.builder().title(title).state(state).body(body).build();
-
-        Amplify.DataStore.save(task, result -> {
-            Log.i(TAG, "Task Saved");
-        }, error -> {
-            Log.i(TAG, "Task Not Saved");
-        });
-
-    }
-}
+//    private void dataStore(String title, String body, String state) {
+//        Task task = Task.builder().title(title).state(state).body(body).build();
+//
+//        Amplify.DataStore.save(task, result -> {
+//            Log.i(TAG, "Task Saved");
+//        }, error -> {
+//            Log.i(TAG, "Task Not Saved");
+//        });
+//
+//    }
