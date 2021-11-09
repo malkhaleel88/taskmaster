@@ -10,19 +10,19 @@ This lab is an introduction to Android and how to use the Android Studio. In thi
 
 ### **AddTask Activity**
 
-![Add task page](screenshots/lab26(2).jpg)
+![Add taskOld page](screenshots/lab26(2).jpg)
 
-![Submitted task](screenshots/lab26(3).jpg)
+![Submitted taskOld](screenshots/lab26(3).jpg)
 
 ### **AllTask Activity**
 
-![All task page](screenshots/lab26(4).jpg)
+![All taskOld page](screenshots/lab26(4).jpg)
 
 -------------------------------------------------------------------------------------------------------------
 
 ## **Lab: 27 - Data in TaskMaster**
 
-In This lab added three buttons on the main page, each button for one task that takes the user to the task detail page when the user clicks on it. Also, added a setting button on the home page that takes the user to the setting page.
+In This lab added three buttons on the main page, each button for one taskOld that takes the user to the taskOld detail page when the user clicks on it. Also, added a setting button on the home page that takes the user to the setting page.
 
 ### **Main Activity**
 
@@ -64,7 +64,7 @@ In this lab, I added a Room database to save the tasks and the details of tasks 
 
 ### **AddTask Activity**
 
-![Add task page](screenshots/lab29(1).jpg)
+![Add taskOld page](screenshots/lab29(1).jpg)
 
 ### **Main Activity**
 
@@ -98,5 +98,24 @@ To test if you edit the user’s username, and then assert that it says the corr
 
 **4. addNewTask()**
 
-To test if you can add a new task then when you tap on this task.
+To test if you can add a new taskOld then when you tap on this taskOld.
 
+--------------------------------------------------------------------------------------------------------------
+
+## **Lab 32: Amplify and DynamoDB**
+
+In this lab I implemented **AWS amplify** to access the data in **DynamoDB** instead of **Room**.
+
+### **Add Task Activity**
+
+Now when the user add new task in the add task page, The task will store in the DynamoDb.
+
+### **Main Activity**
+
+![Home page](screenshots/lab32(1).jpg)
+
+![Home page2](screenshots/lab32(2).jpg)
+
+### **AWS DynamoDB**
+
+![DynamoDB](screenshots/lab32(3).PNG)

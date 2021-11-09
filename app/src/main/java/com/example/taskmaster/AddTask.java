@@ -2,6 +2,7 @@ package com.example.taskmaster;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,9 +11,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
+
+
 public class AddTask extends AppCompatActivity {
 
     int counter;
+    private static final String TAG = "AddTask";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +39,29 @@ public class AddTask extends AppCompatActivity {
                 EditText taskState = findViewById(R.id.taskStateInput);
                 String state = taskState.getText().toString();
 
-                Task task = new Task(title, body, state);
-                AppDatabase.getInstance(getApplicationContext()).taskDao().insertTask(task);
+//                TaskOld taskOld = new TaskOld(title, body, state);
+//                AppDatabase.getInstance(getApplicationContext()).taskDao().insertTask(taskOld);
 
-                TextView tasks = findViewById(R.id.textView7);
-                counter++;
-                tasks.setText(String.valueOf(counter));
-                Context context = getApplicationContext();
-                Toast.makeText(context, "Submitted!", Toast.LENGTH_LONG).show();
+                Task task = Task.builder()
+                        .title(title)
+                        .body(body)
+                        .state(state)
+                        .build();
+
+                Amplify.API.mutate(
+                        ModelMutation.create(task),
+                        response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
+                        error -> Log.e("MyAmplifyApp", "Create failed", error)
+                );
+
             }
         });
+
+        TextView tasks = findViewById(R.id.textView7);
+        counter++;
+        tasks.setText(String.valueOf(counter));
+        Context context = getApplicationContext();
+        Toast.makeText(context, "Submitted!", Toast.LENGTH_LONG).show();
     }
-}
+        }
+
