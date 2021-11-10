@@ -132,6 +132,15 @@ In this lab I created a second entity for a team, which has a name and a list of
 
 ### **Setting Activity**
 
+---------------------------------------------------------------------------------------------------------------
 
+## **Lab 34: Publishing to the Play Store**
 
+This lab is about generate an APK for the application and publishing it to the Google Play Store.
+
+* [APK File](app/release)
+
+* Publishing process needs 25$ I did not complete it.
+
+---------------------------------------------------------------------------------------------------------------
 
