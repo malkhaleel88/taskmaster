@@ -138,7 +138,7 @@ In this lab I created a second entity for a team, which has a name and a list of
 
 This lab is about generate an APK for the application and publishing it to the Google Play Store.
 
-* [APK File](app/debug)
+* [APK File](/APK)
 
 * Publishing process needs 25$ I did not complete it.
 
