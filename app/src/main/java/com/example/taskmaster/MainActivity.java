@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
 
         allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         allTasksRecyclerView.setAdapter(new TaskAdapter(tasks, new TaskAdapter.OnTaskItemClickListener() {
             @Override
             public void onItemClicked(int position) {
@@ -214,11 +214,11 @@ public class MainActivity extends AppCompatActivity {
                 response -> {
                     for (Task task : response.getData()) {
                         tasks.add(new TaskOld(task.getTitle(), task.getBody(), task.getState()));
-                        Log.i(TAG, "The Tasks From Cloud are: " + task.getTitle());
+                        Log.i(TAG, "The Tasks From Cloud Are: " + task.getTitle());
                     }
                     handler.sendEmptyMessage(1);
                 },
-                error -> Log.e(TAG, "Failed to get Tasks from From Cloud: " + error.toString())
+                error -> Log.e(TAG, "Failed To Get Tasks From Cloud: " + error.toString())
         );
     }
 
