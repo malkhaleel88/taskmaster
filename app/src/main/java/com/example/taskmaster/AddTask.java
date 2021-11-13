@@ -19,6 +19,7 @@ import androidx.room.Room;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class AddTask extends AppCompatActivity {
 //                );
 
     public void addTaskToCloud(String taskTitle, String taskBody, String taskState, Team team) {
-        com.amplifyframework.datastore.generated.model.Task task = com.amplifyframework.datastore.generated.model.Task.builder()
+        Task task = Task.builder()
                 .title(taskTitle)
                 .body(taskBody)
                 .state(taskState)
