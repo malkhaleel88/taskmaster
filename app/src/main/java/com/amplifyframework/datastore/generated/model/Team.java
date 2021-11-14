@@ -1,39 +1,37 @@
 package com.amplifyframework.datastore.generated.model;
 
-import com.amplifyframework.core.model.annotations.HasMany;
-import com.amplifyframework.core.model.temporal.Temporal;
-
-import java.util.List;
-import java.util.UUID;
-import java.util.Objects;
+import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 import androidx.core.util.ObjectsCompat;
 
 import com.amplifyframework.core.model.Model;
-import com.amplifyframework.core.model.annotations.Index;
+import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.annotations.ModelConfig;
 import com.amplifyframework.core.model.annotations.ModelField;
 import com.amplifyframework.core.model.query.predicate.QueryField;
+import com.amplifyframework.core.model.temporal.Temporal;
 
-import static com.amplifyframework.core.model.query.predicate.QueryField.field;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 /** This is an auto generated class representing the Team type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "Teams")
 public final class Team implements Model {
   public static final QueryField ID = field("Team", "id");
-  public static final QueryField TEAM_NAME = field("Team", "teamName");
+  public static final QueryField NAME = field("Team", "name");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="String", isRequired = true) String teamName;
-  private final @ModelField(targetType="Task") @HasMany(associatedWith = "team", type = Task.class) List<Task> tasks = null;
+  private final @ModelField(targetType="String", isRequired = true) String name;
+  private final @ModelField(targetType="Task") @HasMany(associatedWith = "teamID", type = Task.class) List<Task> tasks = null;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
       return id;
   }
   
-  public String getTeamName() {
-      return teamName;
+  public String getName() {
+      return name;
   }
   
   public List<Task> getTasks() {
@@ -48,9 +46,9 @@ public final class Team implements Model {
       return updatedAt;
   }
   
-  public Team(String id, String teamName) {
+  private Team(String id, String name) {
     this.id = id;
-    this.teamName = teamName;
+    this.name = name;
   }
   
   @Override
@@ -62,7 +60,7 @@ public final class Team implements Model {
       } else {
       Team team = (Team) obj;
       return ObjectsCompat.equals(getId(), team.getId()) &&
-              ObjectsCompat.equals(getTeamName(), team.getTeamName()) &&
+              ObjectsCompat.equals(getName(), team.getName()) &&
               ObjectsCompat.equals(getCreatedAt(), team.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), team.getUpdatedAt());
       }
@@ -72,7 +70,7 @@ public final class Team implements Model {
    public int hashCode() {
     return new StringBuilder()
       .append(getId())
-      .append(getTeamName())
+      .append(getName())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -84,14 +82,14 @@ public final class Team implements Model {
     return new StringBuilder()
       .append("Team {")
       .append("id=" + String.valueOf(getId()) + ", ")
-      .append("teamName=" + String.valueOf(getTeamName()) + ", ")
+      .append("name=" + String.valueOf(getName()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
       .toString();
   }
   
-  public static TeamNameStep builder() {
+  public static NameStep builder() {
       return new Builder();
   }
   
@@ -112,10 +110,10 @@ public final class Team implements Model {
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      teamName);
+      name);
   }
-  public interface TeamNameStep {
-    BuildStep teamName(String teamName);
+  public interface NameStep {
+    BuildStep name(String name);
   }
   
 
@@ -125,22 +123,22 @@ public final class Team implements Model {
   }
   
 
-  public static class Builder implements TeamNameStep, BuildStep {
+  public static class Builder implements NameStep, BuildStep {
     private String id;
-    private String teamName;
+    private String name;
     @Override
      public Team build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
         return new Team(
           id,
-          teamName);
+          name);
     }
     
     @Override
-     public BuildStep teamName(String teamName) {
-        Objects.requireNonNull(teamName);
-        this.teamName = teamName;
+     public BuildStep name(String name) {
+        Objects.requireNonNull(name);
+        this.name = name;
         return this;
     }
     
@@ -156,14 +154,14 @@ public final class Team implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String teamName) {
+    private CopyOfBuilder(String id, String name) {
       super.id(id);
-      super.teamName(teamName);
+      super.name(name);
     }
     
     @Override
-     public CopyOfBuilder teamName(String teamName) {
-      return (CopyOfBuilder) super.teamName(teamName);
+     public CopyOfBuilder name(String name) {
+      return (CopyOfBuilder) super.name(name);
     }
   }
   
