@@ -144,3 +144,13 @@ This lab is about generate an APK for the application and publishing it to the G
 
 ---------------------------------------------------------------------------------------------------------------
 
+## **Lab 36: Cognito**
+
+
+### **Sign Up page**
+
+### **Verification Page**
+
+### **Sign in Page**
+
+### **Main Page**
