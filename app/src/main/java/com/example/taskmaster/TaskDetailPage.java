@@ -1,12 +1,11 @@
 package com.example.taskmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class TaskDetailPage extends AppCompatActivity {
 
@@ -15,10 +14,19 @@ public class TaskDetailPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail_page);
 
-        Intent intent = getIntent();
-        ((TextView) findViewById(R.id.textView8)).setText(intent.getExtras().getString("title"));
-        ((TextView) findViewById(R.id.textView10)).setText(intent.getExtras().getString("body"));
-        ((TextView) findViewById(R.id.textView14)).setText(intent.getExtras().getString("state"));
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String titleName = sharedPreferences.getString("title","title");
+        String bodyName = sharedPreferences.getString("body","body");
+        String stateName = sharedPreferences.getString("state","state");
+
+
+        TextView title = findViewById(R.id.textView8);
+        TextView body = findViewById(R.id.textView10);
+        TextView state = findViewById(R.id.textView14);
+
+        title.setText(titleName);
+        body.setText(bodyName);
+        state.setText(stateName);
     }
 
 }

@@ -119,3 +119,40 @@ Now when the user add new task in the add task page, The task will store in the 
 ### **AWS DynamoDB**
 
 ![DynamoDB](screenshots/lab32(3).PNG)
+
+---------------------------------------------------------------------------------------------------------------
+
+## **Lab 33: Related Data**
+
+In this lab I created a second entity for a team, which has a name and a list of tasks. So, tasks will be Updated to be owned by a team.
+
+### **Main Activity**
+
+![Home page](screenshots/lab33(1).jpg)
+
+![Home page2](screenshots/lab33(2).jpg)
+
+### **Add Task Activity**
+
+![Add Task Page](screenshots/lab33(3).jpg)
+
+### **Setting Activity**
+
+![Setting Page](screenshots/lab33(4).jpg)
+
+### **AWS DynamoDB**
+
+![DynamoDB](screenshots/lab33(5).PNG)
+
+---------------------------------------------------------------------------------------------------------------
+
+## **Lab 34: Publishing to the Play Store**
+
+This lab is about generate an APK for the application and publishing it to the Google Play Store.
+
+* [APK File](/APK)
+
+* Publishing process needs 25$ I did not complete it.
+
+---------------------------------------------------------------------------------------------------------------
+
