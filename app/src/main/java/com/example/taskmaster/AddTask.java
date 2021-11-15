@@ -1,32 +1,60 @@
 package com.example.taskmaster;
 
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+
 
 public class AddTask extends AppCompatActivity {
 
-    int counter;
     private static final String TAG = "AddTask";
 
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        try {
+                            onChooseFile(result);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
         Button submit = findViewById(R.id.button3);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -56,21 +84,29 @@ public class AddTask extends AppCompatActivity {
                     id="3";
                 }
 
+                findViewById(R.id.btnUploadFile).setOnClickListener(view -> {
+                    Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+                    chooseFile.setType("*/*");
+                    chooseFile = Intent.createChooser(chooseFile, "Choose a file");
+                    someActivityResultLauncher.launch(chooseFile);
+                });
+
+                String fileNameIfThere = uploadedFileName == null ? "" : uploadedFileName;
+
                 dataStore(title, body, state, id);
 
             }
         });
 
-        TextView tasks = findViewById(R.id.textView7);
-        counter++;
-        tasks.setText(String.valueOf(counter));
         Context context = getApplicationContext();
         Toast.makeText(context, "Submitted!", Toast.LENGTH_LONG).show();
+
     }
 
 
     public void dataStore(String taskTitle, String taskBody, String taskState, String id) {
-        Task task = Task.builder().teamId(id).title(taskTitle).body(taskBody).state(taskState).build();
+        Task task = Task.builder().teamId(id).title(taskTitle).body(taskBody).state(taskState)
+                .fileName(fileNameIfThere).build();
 
         Amplify.API.mutate(ModelMutation.create(task),
                 success -> Log.i(TAG, "Saved to DynamoDB"),
@@ -80,6 +116,45 @@ public class AddTask extends AppCompatActivity {
         toast.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void onChooseFile(ActivityResult activityResult) throws IOException {
 
+        Uri uri = null;
+        if (activityResult.getData() != null) {
+            uri = activityResult.getData().getData();
+        }
+        assert uri != null;
+        uploadedFileName = new Date().toString() + "." + getMimeType(getApplicationContext(),uri);
+
+        File uploadFile = new File(getApplicationContext().getFilesDir(), "uploadFile");
+
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            FileUtils.copy(inputStream, new FileOutputStream(uploadFile));
+        } catch (Exception exception) {
+            Log.e("onChooseFile", "onActivityResult: file upload failed" + exception.toString());
+        }
+
+        Amplify.Storage.uploadFile(
+                uploadedFileName,
+                uploadFile,
+                success -> Log.i("onChooseFile", "uploadFileToS3: succeeded " + success.getKey()),
+                error -> Log.e("onChooseFile", "uploadFileToS3: failed " + error.toString())
+        );
+    }
+
+    public static String getMimeType(Context context, Uri uri) {
+        String extension;
+
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            final MimeTypeMap mime = MimeTypeMap.getSingleton();
+            extension = mime.getExtensionFromMimeType(context.getContentResolver().getType(uri));
+        } else {
+            extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
+
+        }
+
+        return extension;
+    }
 }
 

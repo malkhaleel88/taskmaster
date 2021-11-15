@@ -44,6 +44,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         viewHolder.textViewTitle.setText(task.getTitle());
         viewHolder.textViewBody.setText(task.getBody());
         viewHolder.textViewState.setText(task.getState());
+        viewHolder.image.setImageResource(task.getFileName());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
