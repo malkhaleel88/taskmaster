@@ -92,43 +92,25 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentSetting);
         });
 
-        Button buttonTask1 = findViewById(R.id.button5);
-        buttonTask1.setOnClickListener(view -> {
-            Intent intentTaskDetails = new Intent(MainActivity.this, TaskDetailPage.class);
-            String task1 = buttonTask1.getText().toString();
-            intentTaskDetails.putExtra("title", task1);
-            startActivity(intentTaskDetails);
-        });
-
-        Button buttonTask2 = findViewById(R.id.button6);
-        buttonTask2.setOnClickListener(view -> {
-            Intent intentTaskDetails = new Intent(MainActivity.this, TaskDetailPage.class);
-            String task2 = buttonTask2.getText().toString();
-            intentTaskDetails.putExtra("title", task2);
-            startActivity(intentTaskDetails);
-        });
-
-        Button buttonTask3 = findViewById(R.id.button7);
-        buttonTask3.setOnClickListener(view -> {
-            Intent intentTaskDetails = new Intent(MainActivity.this, TaskDetailPage.class);
-            String task3 = buttonTask3.getText().toString();
-            intentTaskDetails.putExtra("title", task3);
-            startActivity(intentTaskDetails);
-        });
-    }
-        public void onClickLogin(View view){
+        Button signInBbutton = findViewById(R.id.signin);
+        signInBbutton.setOnClickListener(view -> {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        }
-        public void onClickJoin(View view){
+        });
+
+        Button signUpButton = findViewById(R.id.signup);
+        signUpButton.setOnClickListener(view -> {
             Intent intent = new Intent(this, JoinActivity.class);
             startActivity(intent);
-        }
-        public void onClickSignOut(View view){
+        });
+
+        Button signOutButton = findViewById(R.id.signout);
+        signOutButton.setOnClickListener(view -> {
             Amplify.Auth.signOut(
                     () -> Log.i("AuthQuickstart", "Signed out successfully"),
                     error -> Log.e("AuthQuickstart", error.toString())
             );
+        });
     }
 
     @Override
