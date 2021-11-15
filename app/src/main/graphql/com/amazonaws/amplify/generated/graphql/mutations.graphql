@@ -5,23 +5,10 @@ mutation CreateTask(
 ) {
   createTask(input: $input, condition: $condition) {
     id
-    teamId
+    teamID
     title
     body
     state
-    team {
-      id
-      teamName
-      tasks {
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
     _version
     _deleted
     _lastChangedAt
@@ -35,23 +22,10 @@ mutation UpdateTask(
 ) {
   updateTask(input: $input, condition: $condition) {
     id
-    teamId
+    teamID
     title
     body
     state
-    team {
-      id
-      teamName
-      tasks {
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
     _version
     _deleted
     _lastChangedAt
@@ -65,23 +39,10 @@ mutation DeleteTask(
 ) {
   deleteTask(input: $input, condition: $condition) {
     id
-    teamId
+    teamID
     title
     body
     state
-    team {
-      id
-      teamName
-      tasks {
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
     _version
     _deleted
     _lastChangedAt
@@ -95,11 +56,11 @@ mutation CreateTeam(
 ) {
   createTeam(input: $input, condition: $condition) {
     id
-    teamName
+    name
     tasks {
       items {
         id
-        teamId
+        teamID
         title
         body
         state
@@ -125,11 +86,11 @@ mutation UpdateTeam(
 ) {
   updateTeam(input: $input, condition: $condition) {
     id
-    teamName
+    name
     tasks {
       items {
         id
-        teamId
+        teamID
         title
         body
         state
@@ -155,11 +116,11 @@ mutation DeleteTeam(
 ) {
   deleteTeam(input: $input, condition: $condition) {
     id
-    teamName
+    name
     tasks {
       items {
         id
-        teamId
+        teamID
         title
         body
         state

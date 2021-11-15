@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private TaskAdapter adapter;
 
 //    private TaskDao taskDao;
-//
+
 //    private Handler handler;
+
 
 
     @Override
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
             tasks = GetData2(allTasksRecyclerView);
         }
         allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        List<Task> finalTasks = tasks;
         allTasksRecyclerView.setAdapter(new TaskAdapter(tasks));
 
         Button addTask = findViewById(R.id.button);
@@ -196,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tasks = findViewById(R.id.textView);
         tasks.setText(userName + "'s Tasks");
 
+
 //        TextView title = findViewById(R.id.textView);
 //        title.setText(userName + "'s Tasks");
 //
@@ -238,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
     private  List<Task> GetData( RecyclerView allTaskDataRecyclerView ){
         Handler handler = new Handler(Looper.myLooper(), new Handler.Callback() {
+
             @Override
             public boolean handleMessage(@NonNull Message msg) {
                 allTaskDataRecyclerView.getAdapter().notifyDataSetChanged();
@@ -269,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
         String Team = sharedPreferences.getString("Team","noTeam");
 
         Handler handler = new Handler(Looper.myLooper(), new Handler.Callback() {
+
             @Override
             public boolean handleMessage(@NonNull Message msg) {
                 allTaskDataRecyclerView.getAdapter().notifyDataSetChanged();
