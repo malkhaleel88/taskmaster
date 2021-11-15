@@ -21,32 +21,12 @@ public class AddTask extends AppCompatActivity {
 
     int counter;
     private static final String TAG = "AddTask";
-//
-//    private TaskDao taskDao;
-//
-//    private String teamId = "";
-//
-//    private final List<Team> teams = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-//        getTeamsDataFromCloud();
-//
-//        Spinner teamsList = findViewById(R.id.spinner3);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-//                R.array.teams_array, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        teamsList.setAdapter(adapter);
-//
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
-//
-//        AppDatabase database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "task_List")
-//                .allowMainThreadQueries().build();
-//        taskDao = database.taskDao();
 
         Button submit = findViewById(R.id.button3);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -88,17 +68,6 @@ public class AddTask extends AppCompatActivity {
         Toast.makeText(context, "Submitted!", Toast.LENGTH_LONG).show();
     }
 
-//                Task task = Task.builder()
-//                        .title(title)
-//                        .body(body)
-//                        .state(state)
-//                        .build();
-//
-//                Amplify.API.mutate(
-//                        ModelMutation.create(task),
-//                        response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
-//                        error -> Log.e("MyAmplifyApp", "Create failed", error)
-//                );
 
     public void dataStore(String taskTitle, String taskBody, String taskState, String id) {
         Task task = Task.builder().teamId(id).title(taskTitle).body(taskBody).state(taskState).build();

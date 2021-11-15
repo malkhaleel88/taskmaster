@@ -61,7 +61,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 editor.apply();
                 Intent gotToStd = new Intent(context,TaskDetailPage.class);
                 context.startActivity(gotToStd);
-//
+
             }
 
 

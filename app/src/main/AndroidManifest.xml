@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Taskmaster">
         <activity
+            android:name=".EmailConfirmationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".JoinActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingsPage"
             android:exported="false"
             android:parentActivityName=".MainActivity" />

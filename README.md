@@ -156,3 +156,27 @@ This lab is about generate an APK for the application and publishing it to the G
 
 ---------------------------------------------------------------------------------------------------------------
 
+## **Lab 36: Cognito**
+
+### **Main Page**
+
+![Home page](screenshots/lab36(1).jpg)
+
+### **Sign Up page**
+
+![Sign Up page](screenshots/lab36(2).jpg)
+
+### **Verification Page**
+
+![Verification Page](screenshots/lab36(3).jpg)
+
+### **Sign in Page**
+
+![Sign in Page](screenshots/lab36(4).jpg)
+
+### **AWS Cognito**
+
+![Cognito](screenshots/lab36(5).PNG)
+
+---------------------------------------------------------------------------------------------------------------
+

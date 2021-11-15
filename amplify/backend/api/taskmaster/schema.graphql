@@ -12,3 +12,10 @@ type Team @model {
   name: String!
   tasks: [Task] @connection(keyName: "byTeam", fields: ["id"])
 }
+
+type User
+@model
+{
+  id: ID!
+  name: String
+}
