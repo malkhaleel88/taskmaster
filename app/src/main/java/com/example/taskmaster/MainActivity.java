@@ -21,6 +21,7 @@ import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
@@ -34,13 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-//    private List<TaskOld> tasks;
 
     private TaskAdapter adapter;
-
-//    private TaskDao taskDao;
-
-//    private Handler handler;
 
 
 
@@ -49,18 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        try {
-//            Amplify.addPlugin(new AWSDataStorePlugin());
-//            Amplify.addPlugin(new AWSApiPlugin());
-//            Amplify.configure(getApplicationContext());
-//
-//            Log.i(TAG, "Initialized Amplify");
-//        } catch (AmplifyException error) {
-//            Log.e(TAG, "Could not initialize Amplify", error);
-//        }
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String userName = sharedPreferences.getString("UserName", "User");
-        String team = sharedPreferences.getString("Team","noTeam");
+        String team = sharedPreferences.getString("Team", "noTeam");
 
         TextView personTasks = findViewById(R.id.textView);
         personTasks.setText(userName + "'s Tasks");
@@ -68,22 +55,11 @@ public class MainActivity extends AppCompatActivity {
         configureAmplify();
         createTeams();
 
-//        handler = new Handler(message -> {
-//            notifyDataSetChanged();
-//            return false;
-//        });
-
-
-//        AppDatabase database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "task_List")
-//                .allowMainThreadQueries().build();
-//        taskDao = database.taskDao();
-
         RecyclerView allTasksRecyclerView = findViewById(R.id.recycleViewId);
         List<Task> tasks = new ArrayList<>();
-        if(team.equals("noTeam")){
+        if (team.equals("noTeam")) {
             tasks = GetData(allTasksRecyclerView);
-        }
-        else{
+        } else {
             tasks = GetData2(allTasksRecyclerView);
         }
         allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -139,52 +115,21 @@ public class MainActivity extends AppCompatActivity {
             intentTaskDetails.putExtra("title", task3);
             startActivity(intentTaskDetails);
         });
-
     }
-//        ArrayList<Task> taskData = new ArrayList<>();
-//
-//        taskData.add(new Task("Mercedes", "German Cars Company", "new"));
-//        taskData.add(new Task("Ford", "American Cars Company", "assigned" ));
-//        taskData.add(new Task("Hyundai", "Korean Cars Company", "in progress"));
-//        taskData.add(new Task("Toyota", "Japanese Cars Company", "complete"));
-
-//        List<TaskOld> taskOldData = AppDatabase.getInstance(this).taskDao().getAll();
-
-//        RecyclerView allTasksRecyclerView = findViewById(R.id.recycleViewId);
-//
-//        allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        allTasksRecyclerView.setAdapter(new TaskAdapter(tasks, new TaskAdapter.OnTaskItemClickListener() {
-//            @Override
-//            public void onItemClicked(int position) {
-//                Intent intentTaskDetails = new Intent(getApplicationContext(), TaskDetailPage.class);
-//                intentTaskDetails.putExtra("title", tasks.get(position).title);
-//                intentTaskDetails.putExtra("body", tasks.get(position).body);
-//                intentTaskDetails.putExtra("state", tasks.get(position).state);
-//                startActivity(intentTaskDetails);
-//
-//            }
-//        }));
-//
-//        Handler handler = new Handler(Looper.myLooper(), new Handler.Callback() {
-//            @Override
-//            public boolean handleMessage(@NonNull Message msg) {
-//                allTasksRecyclerView.getAdapter().notifyDataSetChanged();
-//                return false;
-//            }
-//        });
-//        Amplify.API.query(
-//                ModelQuery.list(Task.class),
-//                response -> {
-//                    for (Task todo : response.getData()) {
-//                        TaskOld taskOrg = new TaskOld(todo.getTitle(),todo.getBody(),todo.getState());
-//                        taskOldData.add(taskOrg);
-//                    }
-//                    handler.sendEmptyMessage(1);
-//                },
-//                error -> Log.e("MyAmplifyApp", "Query failure", error)
-//        );
-
+        public void onClickLogin(View view){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+        public void onClickJoin(View view){
+            Intent intent = new Intent(this, JoinActivity.class);
+            startActivity(intent);
+        }
+        public void onClickSignOut(View view){
+            Amplify.Auth.signOut(
+                    () -> Log.i("AuthQuickstart", "Signed out successfully"),
+                    error -> Log.e("AuthQuickstart", error.toString())
+            );
+    }
 
     @Override
     protected void onResume() {
@@ -199,33 +144,6 @@ public class MainActivity extends AppCompatActivity {
         TextView tasks = findViewById(R.id.textView);
         tasks.setText(userName + "'s Tasks");
 
-
-//        TextView title = findViewById(R.id.textView);
-//        title.setText(userName + "'s Tasks");
-//
-//        tasks = new ArrayList<>();
-//        if (teamName.equals("")) {
-//            getTasksDataFromCloud();
-//        } else {
-//            ((TextView) findViewById(R.id.textView18)).setText(teamName + " Tasks");
-//            getTeamTasksFromCloud(teamName);
-//        }
-//
-//        RecyclerView allTasksRecyclerView = findViewById(R.id.recycleViewId);
-//
-//        allTasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        allTasksRecyclerView.setAdapter(new TaskAdapter(tasks, new TaskAdapter.OnTaskItemClickListener() {
-//            @Override
-//            public void onItemClicked(int position) {
-//                Intent intentTaskDetails = new Intent(getApplicationContext(), TaskDetailPage.class);
-//                intentTaskDetails.putExtra("title", tasks.get(position).title);
-//                intentTaskDetails.putExtra("body", tasks.get(position).body);
-//                intentTaskDetails.putExtra("state", tasks.get(position).state);
-//                startActivity(intentTaskDetails);
-//
-//            }
-//        }));
     }
 
     private void configureAmplify() {
@@ -233,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
             Amplify.configure(getApplicationContext());
             Log.i(TAG, "Successfully initialized Amplify plugins");
         } catch (AmplifyException exception) {

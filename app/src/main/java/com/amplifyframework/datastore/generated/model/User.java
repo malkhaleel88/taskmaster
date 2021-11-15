@@ -1,6 +1,5 @@
 package com.amplifyframework.datastore.generated.model;
 
-import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
@@ -17,15 +16,14 @@ import com.amplifyframework.core.model.query.predicate.QueryField;
 
 import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
-/** This is an auto generated class representing the Team type in your schema. */
+/** This is an auto generated class representing the User type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Teams")
-public final class Team implements Model {
-  public static final QueryField ID = field("Team", "id");
-  public static final QueryField NAME = field("Team", "name");
+@ModelConfig(pluralName = "Users")
+public final class User implements Model {
+  public static final QueryField ID = field("User", "id");
+  public static final QueryField NAME = field("User", "name");
   private final @ModelField(targetType="ID", isRequired = true) String id;
-  private final @ModelField(targetType="String", isRequired = true) String name;
-  private final @ModelField(targetType="Task") @HasMany(associatedWith = "teamID", type = Task.class) List<Task> tasks = null;
+  private final @ModelField(targetType="String") String name;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -36,10 +34,6 @@ public final class Team implements Model {
       return name;
   }
   
-  public List<Task> getTasks() {
-      return tasks;
-  }
-  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -48,7 +42,7 @@ public final class Team implements Model {
       return updatedAt;
   }
   
-  private Team(String id, String name) {
+  private User(String id, String name) {
     this.id = id;
     this.name = name;
   }
@@ -60,11 +54,11 @@ public final class Team implements Model {
       } else if(obj == null || getClass() != obj.getClass()) {
         return false;
       } else {
-      Team team = (Team) obj;
-      return ObjectsCompat.equals(getId(), team.getId()) &&
-              ObjectsCompat.equals(getName(), team.getName()) &&
-              ObjectsCompat.equals(getCreatedAt(), team.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), team.getUpdatedAt());
+      User user = (User) obj;
+      return ObjectsCompat.equals(getId(), user.getId()) &&
+              ObjectsCompat.equals(getName(), user.getName()) &&
+              ObjectsCompat.equals(getCreatedAt(), user.getCreatedAt()) &&
+              ObjectsCompat.equals(getUpdatedAt(), user.getUpdatedAt());
       }
   }
   
@@ -82,7 +76,7 @@ public final class Team implements Model {
   @Override
    public String toString() {
     return new StringBuilder()
-      .append("Team {")
+      .append("User {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("name=" + String.valueOf(getName()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
@@ -91,7 +85,7 @@ public final class Team implements Model {
       .toString();
   }
   
-  public static NameStep builder() {
+  public static BuildStep builder() {
       return new Builder();
   }
   
@@ -103,8 +97,8 @@ public final class Team implements Model {
    * @param id the id of the existing item this instance will represent
    * @return an instance of this model with only ID populated
    */
-  public static Team justId(String id) {
-    return new Team(
+  public static User justId(String id) {
+    return new User(
       id,
       null
     );
@@ -114,32 +108,27 @@ public final class Team implements Model {
     return new CopyOfBuilder(id,
       name);
   }
-  public interface NameStep {
+  public interface BuildStep {
+    User build();
+    BuildStep id(String id);
     BuildStep name(String name);
   }
   
 
-  public interface BuildStep {
-    Team build();
-    BuildStep id(String id);
-  }
-  
-
-  public static class Builder implements NameStep, BuildStep {
+  public static class Builder implements BuildStep {
     private String id;
     private String name;
     @Override
-     public Team build() {
+     public User build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
-        return new Team(
+        return new User(
           id,
           name);
     }
     
     @Override
      public BuildStep name(String name) {
-        Objects.requireNonNull(name);
         this.name = name;
         return this;
     }
