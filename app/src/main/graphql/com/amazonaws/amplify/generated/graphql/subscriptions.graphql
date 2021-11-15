@@ -2,23 +2,10 @@
 subscription OnCreateTask {
   onCreateTask {
     id
-    teamId
+    teamID
     title
     body
     state
-    team {
-      id
-      teamName
-      tasks {
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
     _version
     _deleted
     _lastChangedAt
@@ -29,23 +16,10 @@ subscription OnCreateTask {
 subscription OnUpdateTask {
   onUpdateTask {
     id
-    teamId
+    teamID
     title
     body
     state
-    team {
-      id
-      teamName
-      tasks {
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
     _version
     _deleted
     _lastChangedAt
@@ -56,23 +30,10 @@ subscription OnUpdateTask {
 subscription OnDeleteTask {
   onDeleteTask {
     id
-    teamId
+    teamID
     title
     body
     state
-    team {
-      id
-      teamName
-      tasks {
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
     _version
     _deleted
     _lastChangedAt
@@ -83,11 +44,11 @@ subscription OnDeleteTask {
 subscription OnCreateTeam {
   onCreateTeam {
     id
-    teamName
+    name
     tasks {
       items {
         id
-        teamId
+        teamID
         title
         body
         state
@@ -110,11 +71,11 @@ subscription OnCreateTeam {
 subscription OnUpdateTeam {
   onUpdateTeam {
     id
-    teamName
+    name
     tasks {
       items {
         id
-        teamId
+        teamID
         title
         body
         state
@@ -137,11 +98,11 @@ subscription OnUpdateTeam {
 subscription OnDeleteTeam {
   onDeleteTeam {
     id
-    teamName
+    name
     tasks {
       items {
         id
-        teamId
+        teamID
         title
         body
         state

@@ -128,9 +128,21 @@ In this lab I created a second entity for a team, which has a name and a list of
 
 ### **Main Activity**
 
+![Home page](screenshots/lab33(1).jpg)
+
+![Home page2](screenshots/lab33(2).jpg)
+
 ### **Add Task Activity**
 
+![Add Task Page](screenshots/lab33(3).jpg)
+
 ### **Setting Activity**
+
+![Setting Page](screenshots/lab33(4).jpg)
+
+### **AWS DynamoDB**
+
+![DynamoDB](screenshots/lab33(5).PNG)
 
 ---------------------------------------------------------------------------------------------------------------
 

@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,24 +17,33 @@ public class SettingsPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
 
-        Spinner teamsList = findViewById(R.id.spinner2);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.teams_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        teamsList.setAdapter(adapter);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         findViewById(R.id.button8).setOnClickListener(view -> {
             TextView text = findViewById(R.id.editTextTextPersonName3);
-            String name =text.getText().toString();
+            String name = text.getText().toString();
 
-            Spinner teamSpinner = (Spinner) findViewById(R.id.spinner2);
-            String teamName = teamSpinner.getSelectedItem().toString();
+            RadioButton b1=findViewById(R.id.radioButton1);
+            RadioButton b2=findViewById(R.id.radioButton2);
+            RadioButton b3=findViewById(R.id.radioButton3);
 
+
+            String id = null;
+            if(b1.isChecked()){
+                id="1";
+            }
+            else if(b2.isChecked()){
+                id="2";
+            }
+            else if(b3.isChecked()){
+                id="3";
+            }
+
+
+            editor.putString("Team", id);
             editor.putString("UserName", name);
-            editor.putString("teamName", teamName);
             editor.apply();
 
             Context context = getApplicationContext();
