@@ -55,7 +55,7 @@ public class AddTask extends AppCompatActivity {
                 });
 
 
-        findViewById(R.id.upload).setOnClickListener(view -> {
+        findViewById(R.id.btnUploadFile).setOnClickListener(view -> {
             Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
             chooseFile.setType("*/*");
             chooseFile = Intent.createChooser(chooseFile, "Choose a file");
@@ -63,17 +63,18 @@ public class AddTask extends AppCompatActivity {
         });
 
 
-        Button addTaskButton = AddTask.this.findViewById(R.id.button_addTask);
+        Button addTaskButton = AddTask.this.findViewById(R.id.button3);
         addTaskButton.setOnClickListener(view -> {
-            EditText studentTitle = findViewById(R.id.edit_myTask);
-            String TitleName = studentTitle.getText().toString();
-            EditText Body = findViewById(R.id.edit_doSomething);
-            String BodyB = (Body.getText().toString());
-            EditText State = findViewById(R.id.stateinput);
-            String StateB = (State.getText().toString());
-            RadioButton b1 = findViewById(R.id.radioButton1);
-            RadioButton b2 = findViewById(R.id.radioButton2);
-            RadioButton b3 = findViewById(R.id.radioButton3);
+            EditText taskTitle = findViewById(R.id.taskTitleInput);
+            String title = taskTitle.getText().toString();
+            EditText taskBody = findViewById(R.id.taskBodyInput);
+            String Body = taskBody.getText().toString();
+            EditText taskState = findViewById(R.id.taskStateInput);
+            String State = taskState.getText().toString();
+
+            RadioButton b1 = findViewById(R.id.radioButtonTeam1);
+            RadioButton b2 = findViewById(R.id.radioButtonTeam2);
+            RadioButton b3 = findViewById(R.id.radioButtonTeam3);
 
 
             String id = null;
@@ -85,7 +86,7 @@ public class AddTask extends AppCompatActivity {
                 id = "3";
             }
 
-            dataStore(TitleName, BodyB, StateB, id);
+            dataStore(title, Body, State, id);
 
 
             Intent intent = new Intent(AddTask.this, MainActivity.class);
@@ -95,8 +96,8 @@ public class AddTask extends AppCompatActivity {
     }
 
     private void dataStore(String title, String body, String state, String id) {
-        String fileNameIfThere = uploadedFileNames == null ? "" : uploadedFileNames;
-        Task task = Task.builder().teamId(id).title(title).body(body).state(state).fileName(fileNameIfThere).build();
+        String fileName = uploadedFileNames == null ? "" : uploadedFileNames;
+        Task task = Task.builder().teamId(id).title(title).body(body).state(state).fileName(fileName).build();
 
 
         Amplify.API.mutate(ModelMutation.create(task), succuess -> {

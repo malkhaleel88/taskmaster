@@ -20,4 +20,6 @@
     <string name="task_description">task description</string>
     <string name="my_task">my task</string>
     <string name="task_title">task title</string>
+    <string name="teams">Teams</string>
+    <string name="todo">TODO</string>
 </resources>
