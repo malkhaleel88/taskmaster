@@ -22,9 +22,9 @@
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="270dp"
-        android:layout_height="127dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed iaculis interdum sem, sed molestie lectus lacinia quis. Mauris maximus risus vitae tempor tempus. Integer at fringilla erat, id feugiat metus. Nunc justo dui, vehicula nec hendrerit non, lacinia eget turpis. Proin aliquam, augue sed malesuada eleifend, nulla dui semper elit, vitae gravida urna turpis et urna. Curabitur diam ligula, dignissim at rhoncus sed, consectetur a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut lacus et massa pellentesque dictum. Praesent fringilla, magna ut luctus mollis, diam dolor ultricies tortor, non luctus felis purus non neque."
+        android:layout_width="245dp"
+        android:layout_height="70dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         android:textColor="@color/teal_700"
         android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,20 +44,20 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintVertical_bias="0.676" />
 
     <ImageView
         android:id="@+id/taskImageDetail"
         android:layout_width="166dp"
         android:layout_height="175dp"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/todo"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.764"
+        app:layout_constraintVertical_bias="0.476"
         app:srcCompat="@drawable/empty_image" />
 
     <TextView
@@ -74,7 +74,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91" />
+        app:layout_constraintVertical_bias="0.676" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -162,15 +162,15 @@ This lab is about generate an APK for the application and publishing it to the G
 
 ![Home page](screenshots/lab36(1).jpg)
 
-### **Sign Up page**
+### **Sign Up Activity**
 
 ![Sign Up page](screenshots/lab36(2).jpg)
 
-### **Verification Page**
+### **Verification Activity**
 
 ![Verification Page](screenshots/lab36(3).jpg)
 
-### **Sign in Page**
+### **Sign in Activity**
 
 ![Sign in Page](screenshots/lab36(4).jpg)
 
@@ -182,3 +182,20 @@ This lab is about generate an APK for the application and publishing it to the G
 
 ## **Lab 37: S3**
 
+### **Add Task Activity**
+
+![Home page](screenshots/lab37(1).jpg)
+
+### **Download Files Page**
+
+![Download Files Page](screenshots/lab37(2).jpg)
+
+### **TaskDetailPage Activity**
+
+![Task Detail Page](screenshots/lab37(3).jpg)
+
+![TaskDetailPage2](screenshots/lab37(4).jpg)
+
+### **AWS S3**
+
+![S3](screenshots/lab37(5).PNG)

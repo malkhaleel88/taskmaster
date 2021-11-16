@@ -84,18 +84,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentSetting);
         });
 
-        Button signInButton = findViewById(R.id.signin);
-        signInButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        });
-
-        Button signUpButton = findViewById(R.id.signup);
-        signUpButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, JoinActivity.class);
-            startActivity(intent);
-        });
-
         Button signOutButton = findViewById(R.id.signout);
         signOutButton.setOnClickListener(view -> {
             Amplify.Auth.signOut(

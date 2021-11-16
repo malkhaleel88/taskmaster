@@ -63,31 +63,6 @@
         app:layout_constraintVertical_bias="0.515" />
 
     <Button
-        android:id="@+id/signin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="#99CDC8"
-        android:text="sign in"
-        android:textColor="@color/cardview_dark_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="324dp"
-        android:backgroundTint="#99CDC8"
-        android:text="sign up"
-        android:textColor="@color/cardview_dark_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
         android:id="@+id/signout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,7 +78,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewId"
         android:layout_width="346dp"
-        android:layout_height="158dp"
+        android:layout_height="213dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.462"
