@@ -7,4 +7,19 @@
     <string name="body" />
     <string name="title" />
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="upload_file">Upload File</string>
+    <string name="task_image">task_image</string>
+    <string name="download_the_linked_file">download_the_linked_file</string>
+    <string name="team_1">Team 1</string>
+    <string name="team_2">Team 2</string>
+    <string name="team_3">Team 3</string>
+    <string name="upload_files">upload files</string>
+    <string name="name">name</string>
+    <string name="add_task_button">add task button</string>
+    <string name="do_something">do something</string>
+    <string name="task_description">task description</string>
+    <string name="my_task">my task</string>
+    <string name="task_title">task title</string>
+    <string name="teams">Teams</string>
+    <string name="todo">TODO</string>
 </resources>

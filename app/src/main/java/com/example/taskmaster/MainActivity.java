@@ -17,13 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amplifyframework.AmplifyException;
-import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 
@@ -34,11 +30,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
-
-    private TaskAdapter adapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         TextView personTasks = findViewById(R.id.textView);
         personTasks.setText(userName + "'s Tasks");
 
-        configureAmplify();
+
         createTeams();
 
         RecyclerView allTasksRecyclerView = findViewById(R.id.recycleViewId);
@@ -76,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         Button allTasks = findViewById(R.id.button2);
         allTasks.setOnClickListener(new View.OnClickListener() {
@@ -87,21 +77,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         findViewById(R.id.button4).setOnClickListener(view -> {
             Intent intentSetting = new Intent(MainActivity.this, SettingsPage.class);
             startActivity(intentSetting);
-        });
-
-        Button signInBbutton = findViewById(R.id.signin);
-        signInBbutton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        });
-
-        Button signUpButton = findViewById(R.id.signup);
-        signUpButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, JoinActivity.class);
-            startActivity(intent);
         });
 
         Button signOutButton = findViewById(R.id.signout);
@@ -110,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                     () -> Log.i("AuthQuickstart", "Signed out successfully"),
                     error -> Log.e("AuthQuickstart", error.toString())
             );
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -120,25 +102,9 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("UserName", "User");
         String teamName = sharedPreferences.getString("Team", "noTeam");
 
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
         TextView tasks = findViewById(R.id.textView);
         tasks.setText(userName + "'s Tasks");
 
-    }
-
-    private void configureAmplify() {
-
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.addPlugin(new AWSCognitoAuthPlugin());
-            Amplify.configure(getApplicationContext());
-            Log.i(TAG, "Successfully initialized Amplify plugins");
-        } catch (AmplifyException exception) {
-            Log.e(TAG, "Failed to initialize Amplify plugins: " + exception.toString());
-        }
     }
 
     private  List<Task> GetData( RecyclerView allTaskDataRecyclerView ){
@@ -200,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
         return  foundTask;
     }
+
     private void createTeams(){
         AtomicBoolean x= new AtomicBoolean(false);
         Amplify.API.query(
@@ -241,5 +208,6 @@ public class MainActivity extends AppCompatActivity {
                     error -> Log.e("MyAmplifyApp", "Create failed", error)
             );
         } }
+
 
 }

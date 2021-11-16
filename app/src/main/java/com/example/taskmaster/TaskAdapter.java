@@ -39,14 +39,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Context context = viewHolder.itemView.getContext();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         Task task= allTasksData.get(position);
         viewHolder.textViewTitle.setText(task.getTitle());
         viewHolder.textViewBody.setText(task.getBody());
         viewHolder.textViewState.setText(task.getState());
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,15 +58,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 editor.putString("body", body);
                 String state =viewHolder.textViewState.getText().toString();
                 editor.putString("state", state);
+                String name=task.getFileName();
+                editor.putString("Filename",name);
                 editor.apply();
+
                 Intent gotToStd = new Intent(context,TaskDetailPage.class);
                 context.startActivity(gotToStd);
 
             }
 
-
         });
-
     }
 
     @Override
@@ -83,10 +84,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewTitle= (TextView)  itemView.findViewById(R.id.title);
-            textViewBody= (TextView)  itemView.findViewById(R.id.body);
-            textViewState= (TextView)  itemView.findViewById(R.id.state);
-            linearLayout=(LinearLayout) itemView.findViewById(R.id.layout);
+            textViewTitle = (TextView)  itemView.findViewById(R.id.title);
+            textViewBody = (TextView)  itemView.findViewById(R.id.body);
+            textViewState = (TextView)  itemView.findViewById(R.id.state);
+            linearLayout =(LinearLayout) itemView.findViewById(R.id.layout);
 
         }
     }
