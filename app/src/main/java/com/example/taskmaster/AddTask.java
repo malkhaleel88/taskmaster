@@ -7,14 +7,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.util.Log;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
@@ -26,17 +23,18 @@ import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
-
 public class AddTask extends AppCompatActivity {
-
+    String img = "";
     private static final String TAG = "AddTask";
-
+    private String uploadedFileNames;
+    ActivityResultLauncher<Intent> someActivityResultLauncher;
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
@@ -56,67 +54,60 @@ public class AddTask extends AppCompatActivity {
                     }
                 });
 
-        Button submit = findViewById(R.id.button3);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText taskTitle = findViewById(R.id.taskTitleInput);
-                String title = taskTitle.getText().toString();
 
-                EditText taskBody = findViewById(R.id.taskBodyInput);
-                String body = taskBody.getText().toString();
-
-                EditText taskState = findViewById(R.id.taskStateInput);
-                String state = taskState.getText().toString();
-
-                RadioButton b1=findViewById(R.id.radioButtonTeam1);
-                RadioButton b2=findViewById(R.id.radioButtonTeam2);
-                RadioButton b3=findViewById(R.id.radioButtonTeam3);
-
-                String id = null;
-                if(b1.isChecked()){
-                    id="1";
-                }
-                else if(b2.isChecked()){
-                    id="2";
-                }
-                else if(b3.isChecked()){
-                    id="3";
-                }
-
-                findViewById(R.id.btnUploadFile).setOnClickListener(view -> {
-                    Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-                    chooseFile.setType("*/*");
-                    chooseFile = Intent.createChooser(chooseFile, "Choose a file");
-                    someActivityResultLauncher.launch(chooseFile);
-                });
-
-                String fileNameIfThere = uploadedFileName == null ? "" : uploadedFileName;
-
-                dataStore(title, body, state, id);
-
-            }
+        findViewById(R.id.upload).setOnClickListener(view -> {
+            Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+            chooseFile.setType("*/*");
+            chooseFile = Intent.createChooser(chooseFile, "Choose a file");
+            someActivityResultLauncher.launch(chooseFile);
         });
 
-        Context context = getApplicationContext();
-        Toast.makeText(context, "Submitted!", Toast.LENGTH_LONG).show();
+
+        Button addTaskButton = AddTask.this.findViewById(R.id.button_addTask);
+        addTaskButton.setOnClickListener(view -> {
+            EditText studentTitle = findViewById(R.id.edit_myTask);
+            String TitleName = studentTitle.getText().toString();
+            EditText Body = findViewById(R.id.edit_doSomething);
+            String BodyB = (Body.getText().toString());
+            EditText State = findViewById(R.id.stateinput);
+            String StateB = (State.getText().toString());
+            RadioButton b1 = findViewById(R.id.radioButton1);
+            RadioButton b2 = findViewById(R.id.radioButton2);
+            RadioButton b3 = findViewById(R.id.radioButton3);
+
+
+            String id = null;
+            if (b1.isChecked()) {
+                id = "1";
+            } else if (b2.isChecked()) {
+                id = "2";
+            } else if (b3.isChecked()) {
+                id = "3";
+            }
+
+            dataStore(TitleName, BodyB, StateB, id);
+
+
+            Intent intent = new Intent(AddTask.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+    }
+
+    private void dataStore(String title, String body, String state, String id) {
+        String fileNameIfThere = uploadedFileNames == null ? "" : uploadedFileNames;
+        Task task = Task.builder().teamId(id).title(title).body(body).state(state).fileName(fileNameIfThere).build();
+
+
+        Amplify.API.mutate(ModelMutation.create(task), succuess -> {
+            Log.i(TAG, "Saved to DYNAMODB");
+        }, error -> {
+            Log.i(TAG, "error saving to DYNAMODB");
+        });
 
     }
 
 
-    public void dataStore(String taskTitle, String taskBody, String taskState, String id) {
-        Task task = Task.builder().teamId(id).title(taskTitle).body(taskBody).state(taskState)
-                .fileName(fileNameIfThere).build();
-
-        Amplify.API.mutate(ModelMutation.create(task),
-                success -> Log.i(TAG, "Saved to DynamoDB"),
-                error -> Log.i(TAG, "Error Saving to DynamoDB"));
-
-        Toast toast = Toast.makeText(this, "Task added!", Toast.LENGTH_LONG);
-        toast.show();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     private void onChooseFile(ActivityResult activityResult) throws IOException {
 
         Uri uri = null;
@@ -124,13 +115,13 @@ public class AddTask extends AppCompatActivity {
             uri = activityResult.getData().getData();
         }
         assert uri != null;
-        uploadedFileName = new Date().toString() + "." + getMimeType(getApplicationContext(),uri);
+        String uploadedFileName = new Date().toString() + "." + getMimeType(getApplicationContext(), uri);
 
         File uploadFile = new File(getApplicationContext().getFilesDir(), "uploadFile");
 
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
-            FileUtils.copy(inputStream, new FileOutputStream(uploadFile));
+            FileUtils.copyToFile(inputStream, uploadFile);
         } catch (Exception exception) {
             Log.e("onChooseFile", "onActivityResult: file upload failed" + exception.toString());
         }
@@ -141,6 +132,7 @@ public class AddTask extends AppCompatActivity {
                 success -> Log.i("onChooseFile", "uploadFileToS3: succeeded " + success.getKey()),
                 error -> Log.e("onChooseFile", "uploadFileToS3: failed " + error.toString())
         );
+        uploadedFileNames = uploadedFileName;
     }
 
     public static String getMimeType(Context context, Uri uri) {
@@ -156,5 +148,5 @@ public class AddTask extends AppCompatActivity {
 
         return extension;
     }
-}
 
+}
