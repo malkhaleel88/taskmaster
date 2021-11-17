@@ -12,6 +12,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amplifyframework.AmplifyException;
+import com.amplifyframework.analytics.pinpoint.AWSPinpointAnalyticsPlugin;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
@@ -55,7 +56,9 @@ public class splash extends AppCompatActivity {
             Amplify.addPlugin(new AWSApiPlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
             Amplify.addPlugin(new AWSS3StoragePlugin());
+            Amplify.addPlugin(new AWSPinpointAnalyticsPlugin(getApplication()));
             Amplify.configure(getApplicationContext());
+
             Log.i(TAG, "Initialized Amplify");
         } catch (AmplifyException error) {
             Log.e(TAG, "Could not initialize Amplify", error);

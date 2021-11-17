@@ -209,3 +209,13 @@ This lab is about generate an APK for the application and publishing it to the G
 ![Notifications](screenshots/lab38(1).PNG)
 
 ![Notifications1](screenshots/lab38(2).jpg)
+
+---------------------------------------------------------------------------------------------------------------
+
+## **Lab 39: Review**
+
+### **AWS Review**
+
+![Notifications](screenshots/lab39(1).PNG)
+
+![Notifications1](screenshots/lab39(2).jpg)
