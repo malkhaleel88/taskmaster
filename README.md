@@ -203,3 +203,9 @@ This lab is about generate an APK for the application and publishing it to the G
 ---------------------------------------------------------------------------------------------------------------
 
 ## **Lab 38: Notifications**
+
+### **AWS Notifications**
+
+![Notifications](screenshots/lab38(1).jpg)
+
+![Notifications1](screenshots/lab38(2).jpg)
