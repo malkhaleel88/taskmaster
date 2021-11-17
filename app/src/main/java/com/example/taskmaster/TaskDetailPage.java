@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.core.Amplify;
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +24,8 @@ public class TaskDetailPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail_page);
+
+        recordEvent();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String titleName = sharedPreferences.getString("title","title");
@@ -66,7 +69,6 @@ public class TaskDetailPage extends AppCompatActivity {
                                 taskImageDetail.setVisibility(View.VISIBLE);
                             }else{
                                 fileURL = String.valueOf(result.getUrl());
-//                                String link = "<a href=\""+ result.getUrl() + "\">Download the linked file</a>";
                                 fileLinkDetail.setVisibility(View.VISIBLE);
                             }
                         });
@@ -75,8 +77,19 @@ public class TaskDetailPage extends AppCompatActivity {
             );
         }
 
+
     }
 
+    private void recordEvent(){
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("Launch Task Details Activity")
+                .addProperty("Channel", "SMS")
+                .addProperty("Successful", true)
+                .addProperty("ProcessDuration", 792)
+                .addProperty("UserAge", 120.3)
+                .build();
 
+        Amplify.Analytics.recordEvent(event);
+    }
 
 }

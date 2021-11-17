@@ -217,5 +217,3 @@ This lab is about generate an APK for the application and publishing it to the G
 ### **AWS Review**
 
 ![Notifications](screenshots/lab39(1).PNG)
-
-![Notifications1](screenshots/lab39(2).jpg)
