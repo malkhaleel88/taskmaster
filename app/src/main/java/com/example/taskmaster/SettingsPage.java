@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.analytics.AnalyticsEvent;
+import com.amplifyframework.core.Amplify;
+
 public class SettingsPage extends AppCompatActivity {
 
     @Override
@@ -17,6 +20,7 @@ public class SettingsPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
 
+        recordEvent();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -52,4 +56,17 @@ public class SettingsPage extends AppCompatActivity {
         });
 
     }
+
+    private void recordEvent(){
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("Launch Setting Activity")
+                .addProperty("Channel", "SMS")
+                .addProperty("Successful", true)
+                .addProperty("ProcessDuration", 792)
+                .addProperty("UserAge", 120.3)
+                .build();
+
+        Amplify.Analytics.recordEvent(event);
+    }
+
 }

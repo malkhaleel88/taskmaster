@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.generated.model.Task;
@@ -42,6 +43,7 @@ public class AddTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        recordEvent();
         ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -148,6 +150,18 @@ public class AddTask extends AppCompatActivity {
         }
 
         return extension;
+    }
+
+    private void recordEvent(){
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("Launch Add Task Activity")
+                .addProperty("Channel", "SMS")
+                .addProperty("Successful", true)
+                .addProperty("ProcessDuration", 792)
+                .addProperty("UserAge", 120.3)
+                .build();
+
+        Amplify.Analytics.recordEvent(event);
     }
 
 }

@@ -1,61 +1,67 @@
 {
-    "api": {
-        "taskmaster": {
-            "service": "AppSync",
-            "providerPlugin": "awscloudformation",
-            "output": {
-                "authConfig": {
-                    "defaultAuthentication": {
-                        "authenticationType": "API_KEY",
-                        "apiKeyConfig": {
-                            "apiKeyExpirationDays": 30,
-                            "description": "0000"
-                        }
-                    },
-                    "additionalAuthenticationProviders": []
-                }
+  "api": {
+    "taskmaster": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "0000"
             }
+          },
+          "additionalAuthenticationProviders": []
         }
-    },
-    "auth": {
-        "taskmasterf7f70491": {
-            "service": "Cognito",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [],
-            "customAuth": false,
-            "frontendAuthConfig": {
-                "loginMechanisms": [
-                    "EMAIL"
-                ],
-                "signupAttributes": [
-                    "EMAIL"
-                ],
-                "passwordProtectionSettings": {
-                    "passwordPolicyMinLength": 8,
-                    "passwordPolicyCharacters": []
-                },
-                "mfaConfiguration": "OFF",
-                "mfaTypes": [
-                    "SMS"
-                ],
-                "verificationMechanisms": [
-                    "EMAIL"
-                ]
-            }
-        }
-    },
-    "storage": {
-        "taskmaster": {
-            "service": "S3",
-            "providerPlugin": "awscloudformation"
-        }
-    },
-    "notifications": {
-        "taskmaster": {
-            "service": "Pinpoint",
-            "channels": [
-                "FCM"
-            ]
-        }
+      }
     }
+  },
+  "auth": {
+    "taskmasterf7f70491": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "loginMechanisms": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      }
+    }
+  },
+  "storage": {
+    "taskmaster": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "notifications": {
+    "taskmaster": {
+      "service": "Pinpoint",
+      "channels": [
+        "FCM"
+      ]
+    }
+  },
+  "analytics": {
+    "taskmaster": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
+  }
 }

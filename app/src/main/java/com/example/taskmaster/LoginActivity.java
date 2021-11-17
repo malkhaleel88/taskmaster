@@ -2,21 +2,16 @@ package com.example.taskmaster;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.amplifyframework.AmplifyException;
-import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.auth.AuthException;
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.auth.result.AuthSignInResult;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.AWSDataStorePlugin;
-import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        recordEvent();
     }
 
     public void onPressLogin(View view) {
@@ -61,5 +57,15 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void recordEvent(){
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("Launch Login activity")
+                .addProperty("Channel", "SMS")
+                .addProperty("Successful", true)
+                .addProperty("ProcessDuration", 792)
+                .addProperty("UserAge", 120.3)
+                .build();
 
+        Amplify.Analytics.recordEvent(event);
+    }
 }
