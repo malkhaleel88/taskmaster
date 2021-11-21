@@ -8,9 +8,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import androidx.activity.result.ActivityResult;
@@ -94,6 +96,20 @@ public class AddTask extends AppCompatActivity {
             Intent intent = new Intent(AddTask.this, MainActivity.class);
             startActivity(intent);
         });
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        ImageView image = findViewById(R.id.imageViewId);
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if (type.startsWith("image/")) {
+                Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+                if (imageUri != null) {
+                    image.setImageURI(imageUri);
+                    image.setVisibility(View.VISIBLE);
+                }
+            }
+        }
 
     }
 
