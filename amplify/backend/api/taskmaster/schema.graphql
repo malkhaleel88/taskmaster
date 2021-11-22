@@ -6,6 +6,8 @@ type Task @model @key(name: "byTeam", fields: ["teamID", "title"]) {
   body : String
   state : String
   fileName: String
+  lat: Float
+  lon: Float
 }
 
 type Team @model {

@@ -225,3 +225,11 @@ This lab is about generate an APK for the application and publishing it to the G
 ![Intent Filters](screenshots/lab41(1).jpg)
 
 ![Intent Filters1](screenshots/lab41(2).jpg)
+
+----------------------------------------------------------------------------------------------------------------
+
+## **Lab 42: Location**
+
+![Location](screenshots/lab42(1).PNG)
+
+![Location1](screenshots/lab42(2).jpg)
