@@ -233,3 +233,10 @@ This lab is about generate an APK for the application and publishing it to the G
 ![Location](screenshots/lab42(1).PNG)
 
 ![Location1](screenshots/lab42(2).jpg)
+
+----------------------------------------------------------------------------------------------------------------
+
+## **Lab 43: Analytics with Pinpoint**
+
+![Analytics with Pinpoint](screenshots/lab43(1).PNG)
+
